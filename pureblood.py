@@ -94,8 +94,10 @@ if platform.system() == 'Windows':
         sizey = bottom - top + 1
     else:
         sizex, sizey = 80, 25
-elif platform.system() == 'Linux':
+elif platform.system() == 'Linux' or platform.sysmtem() == 'Darwin':
     sizey, sizex = os.popen('stty size', 'r').read().split()
+else:
+    sizex = 50
 
 ## Date Time
 month = datetime.date.today().strftime("%B")
