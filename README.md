@@ -48,6 +48,7 @@ Please make sure to update tests as appropriate.
 
 ## Authors
 * [Cr4sHCoD3](https://www.facebook.com/cr4shcod3.py) - Pure Blood
+* [PureHackers](https://www.facebook.com/PureHackers.Sec)
 
 ## License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit) - see the [LICENSE](https://github.com/cr4shcod3/pureblood/blob/master/LICENSE) file for details
