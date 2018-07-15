@@ -52,3 +52,9 @@ Please make sure to update tests as appropriate.
 
 ## License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit) - see the [LICENSE](https://github.com/cr4shcod3/pureblood/blob/master/LICENSE) file for details
+
+## Donations
+* BTC: 34EeNYRpXp5qvjoe3ifBrSDPwLnSLfXVnP
+* BCH: qz0mg0km2he85h7fznwzz5wx8j3ctyjqncfz0kntk7
+* ETH: 0x9a6bdd56b36b7308f836f6243e0f0e82fd5b98b6
+* XMR: 863NGoN8bZWada9VUgMpJBbFAywJ2v2ZhcQi7hVDCJZDRKcvsw2E4jq1yBhfBJkDiabanXi9PoUXVj9fq2aBqikBC6ivBSX
