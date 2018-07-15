@@ -46,7 +46,7 @@ $ pip install -r requirements.txt
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.<br>
 You can also:<br>
-[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gKXro60uY)
+[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/f4a5kJcyl)
 
 ## Authors
 * [Cr4sHCoD3](https://www.facebook.com/cr4shcod3.py) - Pure Blood
