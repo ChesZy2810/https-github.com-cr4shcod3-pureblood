@@ -2,29 +2,54 @@
 
 [![PureBlood](https://raw.githubusercontent.com/cr4shcod3/pureblood/master/imgs/banner.jpg)](https://www.facebook.com/cr4shcod3.py)
 
-# Pure Blood v1
+# Pure Blood v2
 
 > A Penetration Testing Framework created for Hackers / Pentester / Bug Hunter
 
-## Menu
-* Web Pentest <br>
- | Banner Grab <br>
- | Whois <br>
- | Traceroute <br>
- | DNS Record <br>
- | Reverse DNS Lookup <br>
- | Zone Transfer Lookup <br>
- | Port Scan <br>
- | Admin Panel Scan <br>
- | Subdomain Scan <br>
- | CMS Identify <br>
- | Reverse IP Lookup <br>
- | Subnet Lookup <br>
- | Extract Page Links
-* Generator <br>
- | Deface Page
+# Menu
 
-## Installation
+### Web Pentest / Information Gathering:
+- Banner Grab <br>
+- Whois <br>
+- Traceroute <br>
+- DNS Record <br>
+- Reverse DNS Lookup <br>
+- Zone Transfer Lookup <br>
+- Port Scan <br>
+- Admin Panel Scan <br>
+- Subdomain Scan <br>
+- CMS Identify <br>
+- Reverse IP Lookup <br>
+- Subnet Lookup <br>
+- Extract Page Links <br>
+- Directory Fuzz (NEW) <br>
+- File Fuzz (NEW) <br>
+- Shodan Search (NEW) <br>
+- Shodan Host Lookup (NEW)
+#### * Web Application Attack: (NEW)
+- Wordpress <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;| WPScan <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;| WPScan Bruteforce <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;| Wordpress Plugin Vulnerability Checker <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Features: // I will add more soon. <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| WordPress Woocommerce - Directory Craversal <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Wordpress Plugin Booking Calendar 3.0.0 - SQL Injection / Cross-Site Scripting <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| WordPress Plugin WP with Spritz 1.0 - Remote File Inclusion <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| WordPress Plugin Events Calendar - 'event_id' SQL Injection <br>
+- Auto SQL Injection <br>
+&nbsp;&nbsp;&nbsp;&nbsp;Features: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;| Union Based <br>
+&nbsp;&nbsp;&nbsp;&nbsp;| (Error Output = False) Detection <br>
+&nbsp;&nbsp;&nbsp;&nbsp;| Tested on 100+ Websites
+### Generator:
+- Deface Page <br>
+- Password Generator // NEW <br>
+- Text To Hash //NEW <br>
+
+# Author's Words:
+This project is managed / enhanced everyday and sorry if it takes a while before another version is published. Well, I'm the only one who is managing this and also I have personal daily activities. This tool is for everyone. So please open an issue if you run into a bug. Well I can only test it in Windows and Kali Linux since that's the only device I have. Also please try the new AUTO SQL Injection that I'm proud of currently. I created a video already on how I created it. Check it out on my Youtube Channel. The WPScan is also checked for Windows and Kali Linux. If you are using other Linux Distro please add wpscan in your ~/.bashrc.
+
+# Installation
 
 > Any Python Version.
 
@@ -34,29 +59,29 @@ $ cd pureblood
 $ pip install -r requirements.txt
 ```
 
+# DEMO
 
-## Build With
+## Web Pentest
+[![asciicast](https://asciinema.org/a/193579.png)](https://asciinema.org/a/193579)
+
+## Web Application Attack
+[![asciicast](https://asciinema.org/a/193578.png)](https://asciinema.org/a/193578)
+
+# Build With
 * [Colorama](https://pypi.org/project/colorama)
 * [Requests](https://github.com/requests/requests)
 * [Python-whois](https://pypi.org/project/python-whois)
 * [Dnspython](http://www.dnspython.org)
 * [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup)
+* [Shodan](https://shodan.readthedocs.io/en/latest/)
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-Please make sure to update tests as appropriate.<br>
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. You can also suggest a feature, just open an issue.<br>
 You can also:<br>
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/f4a5kJcyl)
 
 ## Authors
 * [Cr4sHCoD3](https://www.facebook.com/cr4shcod3.py) - Pure Blood
-* [PureHackers](https://www.facebook.com/PureHackers.Sec)
 
 ## License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit) - see the [LICENSE](https://github.com/cr4shcod3/pureblood/blob/master/LICENSE) file for details
-
-## Donations
-* BTC: 34EeNYRpXp5qvjoe3ifBrSDPwLnSLfXVnP
-* BCH: qz0mg0km2he85h7fznwzz5wx8j3ctyjqncfz0kntk7
-* ETH: 0x9a6bdd56b36b7308f836f6243e0f0e82fd5b98b6
-* XMR: 863NGoN8bZWada9VUgMpJBbFAywJ2v2ZhcQi7hVDCJZDRKcvsw2E4jq1yBhfBJkDiabanXi9PoUXVj9fq2aBqikBC6ivBSX
