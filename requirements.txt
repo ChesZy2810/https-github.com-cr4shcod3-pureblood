@@ -3,3 +3,4 @@ requests
 python-whois
 dnspython
 bs4
+shodan
