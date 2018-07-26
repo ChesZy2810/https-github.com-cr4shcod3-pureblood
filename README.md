@@ -26,7 +26,7 @@
 - File Fuzz (NEW) <br>
 - Shodan Search (NEW) <br>
 - Shodan Host Lookup (NEW)
-#### * Web Application Attack: (NEW)
+#### Web Application Attack: (NEW)
 - Wordpress <br>
  &nbsp;&nbsp;&nbsp;&nbsp;| WPScan <br>
  &nbsp;&nbsp;&nbsp;&nbsp;| WPScan Bruteforce <br>
