@@ -1,12 +1,12 @@
-<center>
- [![PureBlood](https://raw.githubusercontent.com/cr4shcod3/pureblood/master/imgs/PureBlood%20LOGO.png)](https://www.facebook.com/cr4shcod3.py)
-</center>
+<h1 align="center">Pure Blood</h1>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/cr4shcod3/pureblood/master/imgs/PureBlood%20LOGO.png" alt="PureBlood Material Logo"/>
+</p>
 
 <br>
 
-<center>
  [![License](https://img.shields.io/badge/Licenese-MIT-blue.svg?longCache=true&style=flat)](https://github.com/cr4shcod3/pureblood/blob/master/LICENSE) [![Compatible](https://img.shields.io/badge/Compatible%20On-Any-yellowgreen.svg?longCache=true&style=flat)](https://en.wikipedia.org/wiki/Operating_system) [![Python2x](https://img.shields.io/badge/Python-2x-brightgreen.svg?longCache=true&style=flat)](https://www.python.org/downloads) [![Python3x](https://img.shields.io/badge/Python-3x-brightgreen.svg?longCache=true&style=flat)](https://www.python.org/downloads)
-</center>
 
 # Pure Blood v2
 
