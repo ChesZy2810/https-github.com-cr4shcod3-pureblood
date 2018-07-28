@@ -1527,8 +1527,9 @@ def clear():
 
 
 def banner():
-    if sys.version_info[0] == 3:
-        banner = ("""{1}
+    try:
+        if sys.version_info[0] == 3:
+            banner = ("""{1}
  ██▓███   █    ██  ██▀███  ▓█████  ▄▄▄▄    ██▓     ▒█████   ▒█████  ▓█████▄
 ▓██░  ██▒ ██  ▓██▒▓██ ▒ ██▒▓█   ▀ ▓█████▄ ▓██▒    ▒██▒  ██▒▒██▒  ██▒▒██▀ ██▌
 ▓██░ ██▓▒▓██  ▒██░▓██ ░▄█ ▒▒███   ▒██▒ ▄██▒██░    ▒██░  ██▒▒██░  ██▒░██   █▌
@@ -1545,12 +1546,11 @@ def banner():
 | {2}-- --={3}[ {0}{5}Website: https://github.com/cr4shcod3 {3}]{2}=-- -- {4}|
 | {2}-- --={3}[ {0}{5}PureHackers ~ Blood Security Hackers  {3}]{2}=-- -- {4}|
 {0}
-
 
 
 """.format(reset, red, green, blue, yellow, bold))
-    elif sys.version_info[0] == 2:
-        banner = ("""{1}
+        elif sys.version_info[0] == 2:
+            banner = ("""{1}
  ██▓███   █    ██  ██▀███  ▓█████  ▄▄▄▄    ██▓     ▒█████   ▒█████  ▓█████▄
 ▓██░  ██▒ ██  ▓██▒▓██ ▒ ██▒▓█   ▀ ▓█████▄ ▓██▒    ▒██▒  ██▒▒██▒  ██▒▒██▀ ██▌
 ▓██░ ██▓▒▓██  ▒██░▓██ ░▄█ ▒▒███   ▒██▒ ▄██▒██░    ▒██░  ██▒▒██░  ██▒░██   █▌
@@ -1569,9 +1569,42 @@ def banner():
 {0}
 
 
+""".format(reset, red, green, blue, yellow, bold)).decode('utf-8')
+        print (banner)
+    except:
+        if sys.version_info[0] == 3:
+            banner = ("""{1}
+        o--o               o--o  o            o
+        |   |              |   | |            |
+        O--o  o  o o-o o-o O--o  | o-o o-o  o-O
+        |     |  | |   |-' |   | | | | | | |  |
+        o     o--o o   o-o o--o  o o-o o-o  o-o
+
+     {2}--={3}[ {0}{5}Author: Cr4sHCoD3                     {3}]{2}=--
+{4}| {2}-- --={3}[ {0}{5}Version: 2                            {3}]{2}=-- -- {4}|
+| {2}-- --={3}[ {0}{5}Website: https://github.com/cr4shcod3 {3}]{2}=-- -- {4}|
+| {2}-- --={3}[ {0}{5}PureHackers ~ Blood Security Hackers  {3}]{2}=-- -- {4}|
+{0}
+
+
+""".format(reset, red, green, blue, yellow, bold))
+        elif sys.version_info[0] == 2:
+            banner = ("""{1}
+        o--o               o--o  o            o
+        |   |              |   | |            |
+        O--o  o  o o-o o-o O--o  | o-o o-o  o-O
+        |     |  | |   |-' |   | | | | | | |  |
+        o     o--o o   o-o o--o  o o-o o-o  o-o
+
+     {2}--={3}[ {0}{5}Author: Cr4sHCoD3                     {3}]{2}=--
+{4}| {2}-- --={3}[ {0}{5}Version: 2                            {3}]{2}=-- -- {4}|
+| {2}-- --={3}[ {0}{5}Website: https://github.com/cr4shcod3 {3}]{2}=-- -- {4}|
+| {2}-- --={3}[ {0}{5}PureHackers ~ Blood Security Hackers  {3}]{2}=-- -- {4}|
+{0}
+
 
 """.format(reset, red, green, blue, yellow, bold)).decode('utf-8')
-    print (banner)
+        print (banner)
 
 
 
