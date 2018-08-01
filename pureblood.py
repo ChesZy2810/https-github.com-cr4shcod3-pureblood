@@ -3,6 +3,8 @@
 """
 Script Created By:
     Cr4sHCoD3
+Version:
+    2
 Github:
     https://github.com/cr4shcod3
 FB Page:
