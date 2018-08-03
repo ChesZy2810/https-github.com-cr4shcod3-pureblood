@@ -97,19 +97,6 @@ except:
 
 
 
-try:
-    import mechanicalsoup
-except:
-    if sys.version_info[0] == 3:
-        print ('[!] - Module (MechanicalSoup) not installed!')
-        print ('[#] - Follow this steps:\n\thttps://stackoverflow.com/questions/30493031/installing-lxml-libxml2-libxslt-on-windows-8-1\n[#] - For Python3 Only!')
-        sys.exit()
-    if sys.version_info[0] == 2:
-        print ('[!] - Module (MechanicalSoup) not installed!')
-        sys.exit()
-
-
-
 #########################################################################################################################################################
 # GLOBAL
 
