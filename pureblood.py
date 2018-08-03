@@ -3,8 +3,6 @@
 """
 Script Created By:
     Cr4sHCoD3
-Version:
-    2
 Github:
     https://github.com/cr4shcod3
 FB Page:
@@ -39,6 +37,13 @@ import hashlib
 import random
 import subprocess
 import zipfile
+
+
+
+if sys.version_info[0] == 3:
+    from urllib.parse import urlparse
+elif sys.version_info[0] == 2:
+    from urlparse import urlparse
 
 
 
@@ -89,6 +94,19 @@ try:
 except:
     print ('[!] - Module (shodan) not installed!')
     sys.exit()
+
+
+
+try:
+    import mechanicalsoup
+except:
+    if sys.version_info[0] == 3:
+        print ('[!] - Module (MechanicalSoup) not installed!')
+        print ('[#] - Follow this steps:\n\thttps://stackoverflow.com/questions/30493031/installing-lxml-libxml2-libxslt-on-windows-8-1\n[#] - For Python3 Only!')
+        sys.exit()
+    if sys.version_info[0] == 2:
+        print ('[!] - Module (MechanicalSoup) not installed!')
+        sys.exit()
 
 
 
@@ -1186,6 +1204,9 @@ sudo apt-get install wpscan""")
                 for iii in auto_sql_injection_request_column_dump_list:
                     print ('\t{0} -> {1}'.format(i, iii))
 
+    def auto_xss_injection(self, xi_url):
+        print ('')
+
     def wordpress_vulnerability_check(self, wvc_url):
         print ('[#] - Checking (WordPress Woocommerce - Directory Craversal):')
         wp_woocommerce_wvc_url = ''
@@ -1516,6 +1537,46 @@ class WebPentest:
 
 
 
+def create_directories():
+    if not os.path.exists('outputs'):
+        os.mkdir('outputs')
+    else:
+        pass
+    if not os.path.exists('outputs/generator'):
+        os.mkdir('outputs/generator')
+    else:
+        pass
+    if not os.path.exists('outputs/web_pentest'):
+        os.mkdir('outputs/web_pentest')
+    else:
+        pass
+    if not os.path.exists('outputs/web_pentest/shodan'):
+        os.mkdir('outputs/web_pentest/shodan')
+    else:
+        pass
+    if not os.path.exists('outputs/web_application_attack'):
+        os.mkdir('outputs/web_application_attack')
+    else:
+        pass
+    if not os.path.exists('external'):
+        os.mkdir('external')
+    else:
+        pass
+
+
+
+def version_check():
+    version_check_request = requests.get('https://raw.githubusercontent.com/cr4shcod3/pureblood/master/l33t/ver.txt')
+    version_check_content = int(version_check_request.text)
+    print ('[#] - Checking Version.')
+    if version_check_content != 2:
+        print ('[+] - There is a new update on the github repository:\n\thttps://github.com/cr4shcod3/pureblood\n[+] - Please update for more feature')
+        time.sleep(7)
+    else:
+        pass
+
+
+
 def clear():
     if platform.system() == 'Linux':
         os.system('clear')
@@ -1614,6 +1675,12 @@ def set_target(target, wfunc):
     global url
     global hostname
     global ip
+    if '=' in target and wfunc != 2:
+        target = urlparse(target)
+        if target.scheme == '':
+            target = ('{0}'.format(target.netloc))
+        else:
+            target = ('{0}://{1}'.format(target.scheme, target.netloc))
     if 'http://' in target:
         url = target
         hostname = target.replace('http://', '')
@@ -1625,8 +1692,8 @@ def set_target(target, wfunc):
         hostname = target
     if '1' == target[0] or '2' == target[0] or '3' == target[0] or '4' == target[0] or '5' == target[0] or '6' == target[0] or '7' == target[0] or '8' == target[0] or '9' == target[0]:
         ip = target
-    elif '=' in target:
-        ip = None # This is it for now.
+    if wfunc == 2:
+        pass
     else:
         ip = socket.gethostbyname(hostname)
     if wfunc == 1:
@@ -1780,67 +1847,6 @@ def generator():
 
 
 
-'''def network_pentest():
-    print ("""\n\n
-{3}[ {5}Network Pentest {3}]
-
-    {2}01{3}) {5}?
-    {2}90{3}) {5}Back To Menu
-    {2}95{3}) {5}Set Target
-    {2}99{3}) {5}Exit
-
-{0}""".format(reset, red, green, blue, yellow, cyan))
-    if sys.version_info[0] == 3:
-        try:
-            choice = int(input('{0}PureBlood{1}({3}NetworkPentest{1})> {2}'.format(green, blue, cyan, red)))
-        except KeyboardInterrupt:
-            try:
-                print ('')
-                # print ('\n[+] - Output saved in outputs/network_pentest/' + network_pentest_output)
-            except:
-                pass
-            print ('\n{2}[{1}+{2}] {3}- {4}Exiting...{0}'.format(reset, green, blue, yellow, cyan))
-            sys.exit()
-        except ValueError:
-            print ('{2}[{1}+{2}] {3}- {4}Please enter a valid number!{0}'.format(reset, green, blue, yellow, cyan))
-            time.sleep(2)
-            main()
-    elif sys.version_info[0] == 2:
-        try:
-            choice = int(raw_input('{0}PureBlood{1}({3}NetworkPentest{1})> {2}'.format(green, blue, cyan, red)))
-        except KeyboardInterrupt:
-            try:
-                print ('')
-                # print ('\n[+] - Output saved in outputs/network_pentest/' + network_pentest_output)
-            except:
-                pass
-            print ('\n{2}[{1}+{2}] {3}- {4}Exiting...{0}'.format(reset, green, blue, yellow, cyan))
-            sys.exit()
-        except ValueError:
-            print ('{2}[{1}+{2}] {3}- {4}Please enter a valid number!{0}'.format(reset, green, blue, yellow, cyan))
-            time.sleep(2)
-            main()
-    if choice == 1:
-        main()
-    elif choice == 90:
-        main()
-    elif choice == 95:
-        print ('{2}[{1}#{2}] {3}- {4}Please don\'t put "/" in the end of the Target.{0}'.format(reset, green, blue, yellow, cyan))
-        if sys.version_info[0] == 3:
-            target = str(input('{0}PureBlood{1}>{0}WebApplicationAttack{1}>({3}Target{1})> {2}'.format(green, blue, cyan, red)))
-        if sys.version_info[0] == 2:
-            target = str(raw_input('{0}PureBlood{1}>{0}WebApplicationAttack{1}>({3}Target{1})> {2}'.format(green, blue, cyan, red)))
-        set_target(target, 3)
-    elif choice == 99:
-        print ('\n{2}[{1}+{2}] {3}- {4}Exiting...{0}'.format(reset, green, blue, yellow, cyan))
-        sys.exit()
-    else:
-        print ('{2}[{1}+{2}] {3}- {4}Please enter a valid choice!{0}'.format(reset, green, blue, yellow, cyan))
-        time.sleep(2)
-        network_pentest()'''
-
-
-
 def web_application_attack():
     global cweb_application_atttack
     print ("""{3}[ {5}Web Application Attack {3}]
@@ -1915,6 +1921,9 @@ def web_application_attack():
                 print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
                 time.sleep(2)
                 web_application_attack()
+            except KeyboardInterrupt:
+                print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+                sys.exit()
             print (reset)
             print ('{0}='.format(red) * int(sizex))
             web_application_attack()
@@ -1927,6 +1936,9 @@ def web_application_attack():
                 print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
                 time.sleep(2)
                 web_application_attack()
+            except KeyboardInterrupt:
+                print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+                sys.exit()
             print (reset)
             print ('{0}='.format(red) * int(sizex))
             print ('')
@@ -1940,6 +1952,9 @@ def web_application_attack():
                 print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
                 time.sleep(2)
                 web_application_attack()
+            except KeyboardInterrupt:
+                print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+                sys.exit()
             print (reset)
             print ('{0}='.format(red) * int(sizex))
             print ('')
@@ -1971,6 +1986,26 @@ def web_application_attack():
             time.sleep(2)
             print ('')
             web_application_attack()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
+        print (reset)
+        print ('{0}='.format(red) * int(sizex))
+        print ('')
+        web_application_attack()
+    elif choice == 3:
+        print ('{0}='.format(red) * int(sizex))
+        print (reset + bold)
+        try:
+            wap_auto_xss_injection = cweb_application_atttack.wap_auto_xss_injection(url)
+        except NameError:
+            print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
+            time.sleep(2)
+            print ('')
+            web_application_attack()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print (reset)
         print ('{0}='.format(red) * int(sizex))
         print ('')
@@ -2061,6 +2096,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Banner Grab Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2079,6 +2117,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Whois Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2097,6 +2138,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Traceroute Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2115,6 +2159,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] DNS Record Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2135,6 +2182,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Reverse DNS Lookup Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2153,6 +2203,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Zone Transfer Lookup Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2175,6 +2228,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Port Scan Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2195,6 +2251,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Admin Panel Scan Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2219,6 +2278,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         so_200, so_301, so_302, so_403 = wp_subdomain_scan
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Subdomain Scan Result - ' + url)
@@ -2249,6 +2311,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] CMS Detect - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2267,6 +2332,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Reverse IP Lookup Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2289,6 +2357,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         print (reset + bold)
         print (wp_subnet_lookup)
@@ -2302,6 +2373,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Links Extract Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2324,6 +2398,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] Directory Fuzz Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2360,6 +2437,9 @@ def web_pentest():
             print ('\n{2}[{1}!{2}] {3}- {4}Please set the target first. {1}95{2}) {4}Set Target{0}'.format(reset, green, blue, yellow, cyan))
             time.sleep(2)
             web_pentest()
+        except KeyboardInterrupt:
+            print ('\n{2}[{1}+{2}] {3}- {1}Exiting!{0}'.format(reset, red, blue, yellow))
+            sys.exit()
         print ('{0}='.format(red) * int(sizex))
         web_pentest_outputfile.write('[+] File Fuzz Result - ' + url)
         web_pentest_outputfile.write('\n============================================================')
@@ -2578,30 +2658,8 @@ def main():
 
 
 if __name__ == '__main__':
-    if not os.path.exists('outputs'):
-        os.mkdir('outputs')
-    else:
-        pass
-    if not os.path.exists('outputs/generator'):
-        os.mkdir('outputs/generator')
-    else:
-        pass
-    if not os.path.exists('outputs/web_pentest'):
-        os.mkdir('outputs/web_pentest')
-    else:
-        pass
-    if not os.path.exists('outputs/web_pentest/shodan'):
-        os.mkdir('outputs/web_pentest/shodan')
-    else:
-        pass
-    if not os.path.exists('outputs/web_application_attack'):
-        os.mkdir('outputs/web_application_attack')
-    else:
-        pass
-    if not os.path.exists('external'):
-        os.mkdir('external')
-    else:
-        pass
+    create_directories()
+    version_check()
     clear()
     banner()
     main()
