@@ -1552,18 +1552,6 @@ def create_directories():
 
 
 
-def version_check():
-    version_check_request = requests.get('https://raw.githubusercontent.com/cr4shcod3/pureblood/master/l33t/ver.txt')
-    version_check_content = int(version_check_request.text)
-    print ('[#] - Checking Version.')
-    if version_check_content != 2:
-        print ('[+] - There is a new update on the github repository:\n\thttps://github.com/cr4shcod3/pureblood\n[+] - Please update for more feature')
-        time.sleep(7)
-    else:
-        pass
-
-
-
 def clear():
     if platform.system() == 'Linux':
         os.system('clear')
@@ -2646,7 +2634,6 @@ def main():
 
 if __name__ == '__main__':
     create_directories()
-    version_check()
     clear()
     banner()
     main()
