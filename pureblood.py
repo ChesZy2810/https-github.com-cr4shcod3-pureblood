@@ -22,8 +22,6 @@ Special Mentions:
 """
 
 
-
-
 import os
 import sys
 import platform
@@ -134,11 +132,14 @@ if platform.system() == 'Windows':
     csbi = create_string_buffer(22)
     res = windll.kernel32.GetConsoleScreenBufferInfo(h, csbi)
     if res:
-        import struct
-        (bufx, bufy, curx, cury, wattr,
-        left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhHhhhhhh", csbi.raw)
-        sizex = right - left + 1
-        sizey = bottom - top + 1
+        try:
+            import struct
+            (bufx, bufy, curx, cury, wattr,
+            left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhHhhhhhh", csbi.raw)
+            sizex = right - left + 1
+            sizey = bottom - top + 1
+        except:
+            print("[!] - Module (struct) not installed!")
     else:
         sizex, sizey = 80, 25
 elif platform.system() == 'Linux' or platform.system() == 'Darwin':
@@ -204,6 +205,7 @@ def dns_record_scanner(drs_hostname, ids_item, dns_record_list):
             ids_item = str(ids_item); rdata = str(rdata)
             dns_record_list.append(str(ids_item + ' : ' + rdata))
     except Exception:
+        print("The scanner Error has happened, we will continue")
         pass
 
 def subdomain_scanner(subdomain, so_200, so_301, so_302, so_403):
@@ -220,6 +222,7 @@ def subdomain_scanner(subdomain, so_200, so_301, so_302, so_403):
         elif subdomain_scanner_code == 403:
             so_403.append(subdomain)
     except ConnectionError:
+        print("Connection Error has happened, we will continue")
         pass
 
 def directory_scanner(ds_url_list, directory_fuzz_final1, directory_fuzz_final2, directory_fuzz_final3):
@@ -232,6 +235,7 @@ def directory_scanner(ds_url_list, directory_fuzz_final1, directory_fuzz_final2,
         elif directory_fuzz_request.status_code == 403:
             directory_fuzz_final3.append(ds_url_list)
     except:
+        print("Scanner Error has happened, we will continue")
         pass
 
 def file_scanner(fs_url_list, file_fuzz_final1, file_fuzz_final2, file_fuzz_final3):
@@ -244,6 +248,7 @@ def file_scanner(fs_url_list, file_fuzz_final1, file_fuzz_final2, file_fuzz_fina
         elif file_fuzz_request.status_code == 403:
             file_fuzz_final3.append(fs_url_list)
     except:
+        print("Scanner Issue has arised, we will continue")
         pass
 # END GLOBAL
 #########################################################################################################################################################
@@ -435,7 +440,7 @@ Text To Hash Result:
 
 class WebApplicationAttack:
     def wp_scan(self, url):
-        wp_scan_test_ruby_command = subprocess.call('ruby --version', shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
+        wp_scan_test_ruby_command = subprocess.call('ruby -v', shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
         if wp_scan_test_ruby_command == 0:
             pass
         elif wp_scan_test_ruby_command == 1:
@@ -547,13 +552,13 @@ sudo apt-get install wpscan""")
             try:
                 subprocess.call('wpscan -u '+hostname+' -r --batch --no-banner --verbose -t 500 -e u['+wp_scan_user_range+'],p,tt', shell=True)
             except Exception as e:
-                print ('[!] - Error: {0}'.format(e))
+                print ('[!] - Error: {e}'.format(e))
                 time.sleep(2)
                 print ('')
                 web_application_attack()
 
     def wp_scan_bruteforce(self, url):
-        wp_scan_test_ruby_command = subprocess.call('ruby --version', shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
+        wp_scan_test_ruby_command = subprocess.call('ruby -v', shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
         if wp_scan_test_ruby_command == 0:
             pass
         elif wp_scan_test_ruby_command == 1:
@@ -1279,47 +1284,65 @@ sudo apt-get install wpscan""")
 
 class WebPentest:
     def banner_grab(self, bg_url):
-        banner_grab_request = requests.get(bg_url)
-        banner_grab_result = banner_grab_request.headers
-        banner_grab_result = str(banner_grab_result).replace("{'", "").replace("'}", "").replace("': '", ": ").replace("', '", ",\n")
-        self.banner_grab_result = banner_grab_result
-        return self.banner_grab_result
+        try:
+            banner_grab_request = requests.get(bg_url)
+            banner_grab_result = banner_grab_request.headers
+            banner_grab_result = str(banner_grab_result).replace("{'", "").replace("'}", "").replace("': '", ": ").replace("', '", ",\n")
+            self.banner_grab_result = banner_grab_result
+            return self.banner_grab_result
+        except:
+            print("Could not grab a banner info")
 
     def whois(self, w_url):
-        whois_query = whois.whois(w_url)
-        self.whois_result = whois_query
-        return self.whois_result
+        try:
+            whois_query = whois.whois(w_url)
+            self.whois_result = whois_query
+            return self.whois_result
+        except:
+            print("Could not find perform whois")
 
     def traceroute(self, t_hostname):
-        traceroute_request = requests.get('https://api.hackertarget.com/mtr/?q=' + t_hostname)
-        traceroute_response = traceroute_request.text
-        traceroute_final = """{0}""".format(str(traceroute_response))
-        self.traceroute_result = traceroute_final
-        return self.traceroute_result
+        try:
+            traceroute_request = requests.get('https://api.hackertarget.com/mtr/?q=' + t_hostname)
+            traceroute_response = traceroute_request.text
+            traceroute_final = """{0}""".format(str(traceroute_response))
+            self.traceroute_result = traceroute_final
+            return self.traceroute_result
+        except:
+            print("Could not perform traceroute")
 
     def dns_record(self, dr_hostname):
-        dns_record_list = []
-        for i in ids:
-            t = threading.Thread(target=dns_record_scanner, args=(dr_hostname, i, dns_record_list, ))
-            t.start()
-        t.join()
-        self.dns_record_result = dns_record_list
-        return self.dns_record_result
+        try:
+            dns_record_list = []
+            for i in ids:
+                t = threading.Thread(target=dns_record_scanner, args=(dr_hostname, i, dns_record_list, ))
+                t.start()
+            t.join()
+            self.dns_record_result = dns_record_list
+            return self.dns_record_result
+        except:
+            print("Could not find DNS record")
 
     def reverse_dns_lookup(self, rdl_ip):
-        rdl_ip = rdl_ip + '/24'
-        reverse_dns_lookup_request = requests.get('https://api.hackertarget.com/reversedns/?q=' + rdl_ip)
-        reverse_dns_lookup_response = reverse_dns_lookup_request.text
-        reverse_dns_lookup_final = """{0}""".format(str(reverse_dns_lookup_response))
-        self.reverse_ip_lookup_result = reverse_dns_lookup_final
-        return self.reverse_ip_lookup_result
+        try:
+            rdl_ip = rdl_ip + '/24'
+            reverse_dns_lookup_request = requests.get('https://api.hackertarget.com/reversedns/?q=' + rdl_ip)
+            reverse_dns_lookup_response = reverse_dns_lookup_request.text
+            reverse_dns_lookup_final = """{0}""".format(str(reverse_dns_lookup_response))
+            self.reverse_ip_lookup_result = reverse_dns_lookup_final
+            return self.reverse_ip_lookup_result
+        except:
+            print("Could not perform dns reverse lookup")
 
     def zone_transfer_lookup(self, ztl_hostname):
-        zone_transfer_lookup_request = requests.get('https://api.hackertarget.com/zonetransfer/?q=' + ztl_hostname)
-        zone_transfer_lookup_response = zone_transfer_lookup_request.text
-        zone_transfer_lookup_final = """{0}""".format(str(zone_transfer_lookup_response))
-        self.zone_transfer_lookup_result = zone_transfer_lookup_final
-        return self.zone_transfer_lookup_result
+        try:
+            zone_transfer_lookup_request = requests.get('https://api.hackertarget.com/zonetransfer/?q=' + ztl_hostname)
+            zone_transfer_lookup_response = zone_transfer_lookup_request.text
+            zone_transfer_lookup_final = """{0}""".format(str(zone_transfer_lookup_response))
+            self.zone_transfer_lookup_result = zone_transfer_lookup_final
+            return self.zone_transfer_lookup_result
+        except:
+            print("Could not perform zone transfer lookup")
 
     def port_scan(self, ps_hostname, ps_pend): #https://stackoverflow.com/a/38210023
         port_scan_list = []
